@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const slides = [
   {
@@ -96,17 +97,27 @@ export default function HeroSection() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <button
-              type="button"
+            <Link href="/search" className="hidden items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-lg active:translate-y-0 active:scale-95 active:bg-white/15 md:flex"
               aria-label="Search"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-lg text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-lg active:translate-y-0 active:scale-95 active:bg-white/15"
-            >
-              ⌕
-            </button>
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.39 4.389a1 1 0 01-1.414 1.414l-4.389-4.39A6 6 0 012 8z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Search
+            </Link>
             <button
               type="button"
               aria-label="User profile"
-              className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#f3a3da] to-[#b65ed1] text-sm font-extrabold text-[#2d0f2a] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-95"
+              className="flex h-9.5 w-9.5 items-center justify-center rounded-full bg-linear-to-br from-[#f3a3da] to-[#b65ed1] text-sm font-extrabold text-[#2d0f2a] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-95"
             >
               M
             </button>

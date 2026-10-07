@@ -1,5 +1,20 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Z-Library search configuration
+
+The search API reads `ZLIB_USER_ID` and `ZLIB_USER_KEY` from the project-root
+`.env.local` file. Do not put this file under `app/api`, and do not expose these
+values to the browser.
+
+```env
+ZLIB_USER_ID="your-user-id"
+ZLIB_USER_KEY="your-user-key"
+ZLIB_BASE_URL="https://z-library.biz"
+```
+
+`ZLIB_BASE_URL` must point to a domain that exposes the Z-Library EAPI
+endpoints used by the Python client.
+
 ## Getting Started
 
 First, run the development server:
