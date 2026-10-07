@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const slides = [
+const  slides = [
   {
     eyebrow: "Featured classic",
     title: "Pride & Prejudice",
@@ -119,7 +119,7 @@ export default function HeroSection() {
               aria-label="User profile"
               className="flex h-9.5 w-9.5 items-center justify-center rounded-full bg-linear-to-br from-[#f3a3da] to-[#b65ed1] text-sm font-extrabold text-[#2d0f2a] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-95"
             >
-              M
+              N
             </button>
           </div>
         </header>
@@ -191,6 +191,27 @@ export default function HeroSection() {
               key={current.title + "-cover"}
               className="relative flex min-h-[560px] items-center justify-center opacity-100 transition-all duration-700 ease-out animate-[fadeIn_0.7s_ease-out]"
             >
+              <div
+                role="img"
+                aria-label={`${current.title} by ${current.author} book cover`}
+                className="relative flex aspect-[2/3] w-[min(100%,340px)] flex-col justify-between overflow-hidden rounded-sm border border-white/20 p-8 shadow-[24px_28px_60px_rgba(0,0,0,0.4)]"
+                style={{ background: current.coverGradient }}
+              >
+                <span className="text-center text-[0.7rem] uppercase tracking-[0.18em] text-white/75">
+                  {current.eyebrow}
+                </span>
+                <div className="border-y border-white/35 py-7 text-center">
+                  <h2 className="text-4xl font-serif leading-[0.95] text-white">
+                    {current.title}
+                  </h2>
+                  <p className="mt-5 text-sm uppercase tracking-[0.14em] text-white/80">
+                    {current.author}
+                  </p>
+                </div>
+                <span className="text-center text-[0.65rem] uppercase tracking-[0.2em] text-white/65">
+                  {current.year} · {current.genre}
+                </span>
+              </div>
             </figure>
           </div>
 
