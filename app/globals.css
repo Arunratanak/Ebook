@@ -26,6 +26,14 @@ button {
   transition: all 0.2s ease;
 }
 
+.book-shelf-track {
+  scrollbar-width: none;
+}
+
+.book-shelf-track::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
