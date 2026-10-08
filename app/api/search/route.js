@@ -3,12 +3,14 @@ import { getBookCoverUrl, getZlibConfig } from '@/app/lib/zlib';
 
 export async function POST(request) {
   try {
-    const { query, language, extension, yearFrom, yearTo } = await request.json();
+    const { query, language, extension, yearFrom, yearTo, limit, order } = await request.json();
     const { baseUrl, headers } = getZlibConfig();
+    const resultLimit = Number.isInteger(limit) ? Math.min(Math.max(limit, 1), 50) : 20;
 
     const payload = new URLSearchParams();
     payload.append('message', typeof query === 'string' ? query.trim() : '');
-    payload.append('limit', '20');
+    payload.append('limit', String(resultLimit));
+    if (typeof order === 'string' && order) payload.append('order', order);
     
     if (language) payload.append('languages', language);
     if (extension) payload.append('extensions[]', extension);

@@ -1,4 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Folio
+
+Folio is a dark, cinematic ebook browser and reader built with Next.js 16 and
+React 19. The goal is a local-first app: no account, data stays in the browser.
+It's planned as a PWA later.
+
+## Progress
+
+Build order from the plan: Scaffold → Home → Search → Detail → Reader MVP →
+Progress/settings → Highlights/definitions → Library/upload → Stats → PWA/polish.
+
+| Stage | Status | Notes |
+|---|---|---|
+| Scaffold | Done | Next.js 16.4.0, React 19.3.0, TypeScript, ESLint. |
+| Home | Partial | Hero shows five hardcoded Jane Austen slides, not a blurred-cover backdrop. Genre shelves are hardcoded, and their covers come from per-title searches. |
+| Search | Partial | Search runs on submit, not as you type. Format filter (All, EPUB, PDF, MOBI) is in place. Language, topic, and era filters are not in the UI, and query state is not in the URL. |
+| Detail | Partial | Book detail modal opens from each result: title, author, year, format, synopsis, Save, Download, and a "More by author" row. Read is disabled. No dedicated detail route yet. |
+| Reader | Partial | `/read` opens EPUB, MOBI/AZW3, FB2, CBZ, and PDF with foliate-js (vendored in `public/foliate-js`). Detail modal's Read button links here. Downloads the file each time it opens. Progress is not saved yet, and only the slider and prev/next controls exist. Not tested against a real book. |
+| Progress/settings | Not started | |
+| Highlights/definitions | Not started | |
+| Library/upload | Not started | |
+| Stats | Not started | |
+| PWA/polish | Not started | |
+
+### Routes
+
+| Route | Purpose |
+|---|---|
+| `/` | Home: hero and genre shelves |
+| `/search` | Z-Library search, results grid, detail modal |
+| `/read` | Reader: opens a book from `id`, `hash`, `title`, `extension` query params |
+| `POST /api/search` | Proxies Z-Library search |
+| `POST /api/book` | Proxies Z-Library book details (synopsis) |
+| `POST /api/download` | Proxies book file download |
+
+### Storage
+
+- **Saved books:** kept in `localStorage` under `folio:saved-books`. This is a
+  stopgap. The plan calls for IndexedDB.
+- **Settings and reading progress:** not implemented yet.
+
+### Known issues
+
+- **Download route forwards credentials.** `/api/download` sends the Z-Library
+  cookies to the download link's host, not only the Z-Library host. It also sets
+  an `authority` header, which fetch ignores. Both need fixing before the app is
+  shared.
+- **Synopsis field is unverified.** `/api/book` reads `description` from the
+  EAPI response, but the response shape hasn't been checked against a live book.
+- **Other works uses a second search.** Each modal open runs an author search,
+  which uses Z-Library quota.
+- **Dark Reader hydration warning.** The cover elements have
+  `suppressHydrationWarning` because the Dark Reader extension rewrites their
+  inline styles before hydration. Disable the extension on localhost to see a
+  clean console.
+- **Downloads are buffered in memory.** `/api/download` loads the whole file
+  before sending it, which is risky for large PDFs.
 
 ## Z-Library search configuration
 
