@@ -4,7 +4,7 @@ import { getZlibConfig } from '@/app/lib/zlib';
 export async function POST(request) {
   try {
     const { id, hash, title, extension } = await request.json();
-    const { baseUrl, headers } = getZlibConfig();
+    const { baseUrl, headers } = getZlibConfig(request);
 
     const linkResponse = await fetch(
       `${baseUrl}/eapi/book/${encodeURIComponent(id)}/${encodeURIComponent(hash)}/file`,

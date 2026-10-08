@@ -4,7 +4,7 @@ import { getBookCoverUrl, getZlibConfig } from '@/app/lib/zlib';
 export async function POST(request) {
   try {
     const { query, language, extension, yearFrom, yearTo, limit, order } = await request.json();
-    const { baseUrl, headers } = getZlibConfig();
+    const { baseUrl, headers } = getZlibConfig(request);
     const resultLimit = Number.isInteger(limit) ? Math.min(Math.max(limit, 1), 50) : 20;
 
     const payload = new URLSearchParams();

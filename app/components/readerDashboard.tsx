@@ -16,6 +16,7 @@ const NEXT_KEYS = new Set(['ArrowRight', 'ArrowDown', 'PageDown']);
 
 type FoliateView = HTMLElement & {
   open(file: File): Promise<void>;
+  init(options: { lastLocation?: unknown; showTextStart?: boolean }): Promise<void>;
   close(): void;
   goLeft(): Promise<void>;
   goRight(): Promise<void>;
@@ -147,7 +148,12 @@ function ReaderView({ request }: { request: ReaderRequest }): React.JSX.Element 
         viewRef.current = view;
 
         await view.open(file);
-        if (!cancelled) setStatus('ready');
+        // open() only parses the book. init() renders the first section, so
+        // without it the viewer stays blank. No progress is saved yet, so start
+        // at the text (bodymatter) rather than the cover.
+        await view.init({ showTextStart: true });
+        if (cancelled) return;
+        setStatus('ready');
       } catch (err) {
         if (cancelled) return;
         console.error('Error opening book:', err);

@@ -3,6 +3,40 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useBookCovers } from "./bookCoverProvider";
+import { useAuth } from "./authProvider";
+
+// Signed-in users get their initial, linking to the profile page. Signed-out
+// users get a button that opens the sign-in modal.
+function ProfileControl() {
+  const { user, loading, openAuthModal } = useAuth();
+
+  if (loading) return null;
+
+  if (user) {
+    const initial = (user.name || user.email || "?").trim().charAt(0).toUpperCase();
+    return (
+      <Link
+        href="/profile"
+        aria-label="Your profile"
+        className="profile-button"
+        title={user.name || user.email}
+      >
+        {initial}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      aria-label="Sign in"
+      className="profile-button"
+      onClick={openAuthModal}
+    >
+      ?
+    </button>
+  );
+}
 
 const  slides = [
   {
@@ -121,13 +155,7 @@ export default function HeroSection() {
               </svg>
               Search
             </Link>
-            <button
-              type="button"
-              aria-label="User profile"
-              className="profile-button"
-            >
-              N
-            </button>
+            <ProfileControl />
           </div>
         </header>
 

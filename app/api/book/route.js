@@ -18,7 +18,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Book id and hash are required' }, { status: 400 });
     }
 
-    const { baseUrl, headers } = getZlibConfig();
+    const { baseUrl, headers } = getZlibConfig(request);
 
     const response = await fetch(
       `${baseUrl}/eapi/book/${encodeURIComponent(id)}/${encodeURIComponent(hash)}`,
